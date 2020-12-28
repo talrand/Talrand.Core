@@ -8,35 +8,35 @@ namespace Talrand.Core
         /// <summary>
         /// Sorts DataTable using the passed sort string
         /// </summary>
-        /// <param name="objDataTable">DataTable to sort</param>
-        /// <param name="strSort">A string containing the required sort order</param>
+        /// <param name="dataTable">DataTable to sort</param>
+        /// <param name="sort">A string containing the required sort order</param>
         /// <returns></returns>
-        public static DataTable SortDataTable(DataTable objDataTable, string strSort)
+        public static DataTable SortDataTable(DataTable dataTable, string sort)
         {
-            DataView objDataView = null;
+            DataView dataView = null;
 
             try
             {
                 // Don't continue if no DataTable passed
-                if (objDataTable == null)
+                if (dataTable == null)
                 {
                     return null;
                 }
 
                 // No sort order passed - just return passed DataTable
-                if (strSort == "")
+                if (sort == "")
                 {
-                    return objDataTable;
+                    return dataTable;
                 }
 
                 // Get default view of table
-                objDataView = objDataTable.DefaultView;
+                dataView = dataTable.DefaultView;
 
                 // Sort data
-                objDataView.Sort = strSort;
+                dataView.Sort = sort;
 
                 // Return sorted data
-                return objDataView.ToTable();
+                return dataView.ToTable();
 
             }
             catch (Exception ex)
@@ -48,31 +48,31 @@ namespace Talrand.Core
         /// <summary>
         /// Extracts a DataTable from the passed DataSet
         /// </summary>
-        /// <param name="objDataSet">DataSet to extract DataTable from</param>
-        /// <param name="strTableName">Name of the DataTable to extract from DataSet (optional)</param>
+        /// <param name="dataSet">DataSet to extract DataTable from</param>
+        /// <param name="tableName">Name of the DataTable to extract from DataSet (optional)</param>
         /// <returns></returns>
-        public static DataTable GetTableFromDataSet(DataSet objDataSet, string strTableName = "")
+        public static DataTable GetTableFromDataSet(DataSet dataSet, string tableName = "")
         {
             try
             {
                 // Don't continue if no data present
-                if (objDataSet == null)
+                if (dataSet == null)
                 {
                     return null;
                 }
 
-                if (objDataSet.Tables.Count == 0)
+                if (dataSet.Tables.Count == 0)
                 {
                     return null;
                 }
 
-                if (strTableName != "")
+                if (tableName != "")
                 {
                     // Check DataSet contains requested table
-                    if (objDataSet.Tables.Contains(strTableName) == true)
+                    if (dataSet.Tables.Contains(tableName) == true)
                     {
                         // Return requested table
-                        return objDataSet.Tables[strTableName];
+                        return dataSet.Tables[tableName];
                     }
                     else
                     {
@@ -83,9 +83,8 @@ namespace Talrand.Core
                 else
                 {
                     // No table name passed - just return first table
-                    return objDataSet.Tables[0];
+                    return dataSet.Tables[0];
                 }
-
             }
             catch (Exception ex)
             {
