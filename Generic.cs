@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Win32;
 
 namespace Talrand.Core
 {
@@ -178,6 +179,67 @@ namespace Talrand.Core
             try
             {
                 return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Read the value for the passed registry key
+        /// </summary>
+        /// <param name="keyPath">Path to registry key</param>
+        /// <param name="keyName">Name of registry key</param>
+        /// <returns></returns>
+        public static string ReadRegistryKey(string keyPath, string keyName)
+        {
+            Object keyVal = null;
+
+            try
+            {
+                // Open registry key
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyPath))
+                {
+                    if (key != null)
+                    {
+                        // Get key value
+                        keyVal = key.GetValue(keyName);
+                    }
+                }
+
+                if (keyVal != null)
+                {
+                    // Convert key value to string
+                    return keyVal.ToString();
+                }
+                else
+                {
+                    // No value - return blank
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Writes value to the registry
+        /// </summary>
+        /// <param name="keyPath">Path to registry key</param>
+        /// <param name="keyName">Name of registry key</param>
+        /// <param name="keyVal">Value to write to registry key</param>
+        public static void WriteRegistryKey(string keyPath, string keyName, string keyVal)
+        {
+            try
+            {
+                // Open registry key to write value
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyPath))
+                {
+                    key.SetValue(keyName, keyVal);
+                }
             }
             catch (Exception ex)
             {
