@@ -12,7 +12,7 @@ namespace Talrand.Core
         /// Converts an integer value to a boolean value
         /// </summary>
         /// <param name="val">Integer to convert to boolean</param>
-        /// <returns>Boolean</returns>
+        /// <returns>Converted boolean value</returns>
         public static bool NumericToBoolean(int val)
         {
             try
@@ -36,7 +36,7 @@ namespace Talrand.Core
         /// Converts a boolean value to a byte value
         /// </summary>
         /// <param name="val">Boolean to convert to byte</param>
-        /// <returns></returns>
+        /// <returns>Converted numeric value</returns>
         public static byte BooleanToNumeric(bool val)
         {
             try
@@ -89,6 +89,5 @@ namespace Talrand.Core
                 throw ex;
             }
         }
-
     }
 }
