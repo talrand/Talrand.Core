@@ -184,54 +184,5 @@ namespace Talrand.Core
                 throw ex;
             }
         }
-
-        /// <summary>
-        /// Converts an integer value to a boolean value
-        /// </summary>
-        /// <param name="val">Integer to convert to boolean</param>
-        /// <returns>Boolean</returns>
-        public static bool ConvertNumericToBoolean(int val)
-        {
-            try
-            {
-                if (val == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// Converts a boolean value to a byte value
-        /// </summary>
-        /// <param name="val">Boolean to convert to byte</param>
-        /// <returns></returns>
-        public static byte ConvertBooleanToNumeric(bool val)
-        {
-            try
-            {
-                if (val == true)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
     }
 }

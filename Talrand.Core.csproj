@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conversions.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="Generic.cs" />
     <Compile Include="Encryption.cs" />
