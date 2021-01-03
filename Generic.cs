@@ -203,9 +203,11 @@ namespace Talrand.Core
                 {
                     if (key != null)
                     {
-                        // Get key value
+                        // Get key value and close key
                         keyVal = key.GetValue(keyName);
+                        key.Close();
                     }
+
                 }
 
                 if (keyVal != null)
@@ -233,13 +235,26 @@ namespace Talrand.Core
         /// <param name="keyVal">Value to write to registry key</param>
         public static void WriteRegistryKey(string keyPath, string keyName, string keyVal)
         {
+            RegistryKey key = null;
+
             try
             {
-                // Open registry key to write value
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyPath))
+                // Open registry key
+                key = Registry.CurrentUser.OpenSubKey(keyPath, true);
+                
+                // Create registry key if it doesn't exist
+                if (key == null)
                 {
-                    key.SetValue(keyName, keyVal);
+                    key = Registry.CurrentUser.CreateSubKey(keyPath, RegistryKeyPermissionCheck.ReadWriteSubTree);
                 }
+
+                // Set key value
+                key.SetValue(keyName, keyVal, RegistryValueKind.String);
+
+                // Close and dispose of key
+                key.Close();
+                key.Dispose();
+
             }
             catch (Exception ex)
             {
