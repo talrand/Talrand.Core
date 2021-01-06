@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace Talrand.Core
 {
@@ -255,6 +256,30 @@ namespace Talrand.Core
                 key.Close();
                 key.Dispose();
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Opens a file using the default associated program
+        /// </summary>
+        /// <param name="fileName">Full filename path of file to open</param>
+        /// <param name="waitForExit">A boolean indicating whether the program should wait for the file to be closed before continuing (optional)</param>
+        public static void ViewFile(String fileName, bool waitForExit = false)
+        {
+            Process process = new Process();
+            try
+            {
+                process.StartInfo.FileName = fileName;
+                process.Start();
+
+                if (waitForExit == true)
+                {
+                    process.WaitForExit();
+                }
             }
             catch (Exception ex)
             {
