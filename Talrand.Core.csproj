@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Conversions.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Generic.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
