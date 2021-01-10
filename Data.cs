@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Talrand.Core
 {
-    class Data
+    public static class Data
     {
         /// <summary>
         /// Sorts DataTable using the passed sort string
@@ -15,34 +15,26 @@ namespace Talrand.Core
         {
             DataView dataView = null;
 
-            try
+            // Don't continue if no DataTable passed
+            if (dataTable == null)
             {
-                // Don't continue if no DataTable passed
-                if (dataTable == null)
-                {
-                    return null;
-                }
-
-                // No sort order passed - just return passed DataTable
-                if (sort == "")
-                {
-                    return dataTable;
-                }
-
-                // Get default view of table
-                dataView = dataTable.DefaultView;
-
-                // Sort data
-                dataView.Sort = sort;
-
-                // Return sorted data
-                return dataView.ToTable();
-
+                return null;
             }
-            catch (Exception ex)
+
+            // No sort order passed - just return passed DataTable
+            if (sort == "")
             {
-                throw ex;
+                return dataTable;
             }
+
+            // Get default view of table
+            dataView = dataTable.DefaultView;
+
+            // Sort data
+            dataView.Sort = sort;
+
+            // Return sorted data
+            return dataView.ToTable();
         }
 
         /// <summary>
@@ -53,42 +45,35 @@ namespace Talrand.Core
         /// <returns></returns>
         public static DataTable GetTableFromDataSet(DataSet dataSet, string tableName = "")
         {
-            try
+            // Don't continue if no data present
+            if (dataSet == null)
             {
-                // Don't continue if no data present
-                if (dataSet == null)
-                {
-                    return null;
-                }
+                return null;
+            }
 
-                if (dataSet.Tables.Count == 0)
-                {
-                    return null;
-                }
+            if (dataSet.Tables.Count == 0)
+            {
+                return null;
+            }
 
-                if (tableName != "")
+            if (tableName != "")
+            {
+                // Check DataSet contains requested table
+                if (dataSet.Tables.Contains(tableName) == true)
                 {
-                    // Check DataSet contains requested table
-                    if (dataSet.Tables.Contains(tableName) == true)
-                    {
-                        // Return requested table
-                        return dataSet.Tables[tableName];
-                    }
-                    else
-                    {
-                        // Passed table name not found
-                        return null;
-                    }
+                    // Return requested table
+                    return dataSet.Tables[tableName];
                 }
                 else
                 {
-                    // No table name passed - just return first table
-                    return dataSet.Tables[0];
+                    // Passed table name not found
+                    return null;
                 }
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                // No table name passed - just return first table
+                return dataSet.Tables[0];
             }
         }
     }

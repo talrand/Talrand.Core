@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Talrand.Core
 {
-    public class Conversions
+    public static class Conversions
     {
         /// <summary>
         /// Converts an integer value to a boolean value
@@ -15,20 +15,13 @@ namespace Talrand.Core
         /// <returns>Converted boolean value</returns>
         public static bool NumericToBoolean(int val)
         {
-            try
+            if (val == 1)
             {
-                if (val == 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -39,20 +32,13 @@ namespace Talrand.Core
         /// <returns>Converted numeric value</returns>
         public static byte BooleanToNumeric(bool val)
         {
-            try
+            if (val == true)
             {
-                if (val == true)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                return 1;
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                return 0;
             }
         }
 
@@ -63,14 +49,7 @@ namespace Talrand.Core
         /// <returns>Converted milliseconds value</returns>
         public static int MinutesToMilliseconds(int minutes)
         {
-            try
-            {
-                return minutes * 60000;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return minutes * 60000;
         }
 
         /// <summary>
@@ -80,14 +59,7 @@ namespace Talrand.Core
         /// <returns>Converted milliseconds value</returns>
         public static int SecondsToMilliseconds(int seconds)
         {
-            try
-            {
-                return seconds * 1000;
-            } 
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return seconds * 1000;
         }
     }
 }

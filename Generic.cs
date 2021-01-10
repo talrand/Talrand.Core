@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Talrand.Core
 {
-    public class Generic
+    public static class Generic
     {
         /// <summary>
         /// Retrieves data by inspecting a string for start and end data tags
@@ -20,57 +20,50 @@ namespace Talrand.Core
             int start = 0;
             int end = 0;
 
-            try
+            // Don't continue if no data passed
+            if (data == "")
             {
-                // Don't continue if no data passed
-                if (data == "")
-                {
-                    return "";
-                }
+                return "";
+            }
 
-                // No tags passed - return data
-                if (startTag == "" || endTag == "")
-                {
-                    return data;
-                }
+            // No tags passed - return data
+            if (startTag == "" || endTag == "")
+            {
+                return data;
+            }
 
-                // Data doesn't contain tags
-                if (data.ToLower().Contains(startTag.ToLower()) == false || data.ToLower().Contains(endTag.ToLower()) == false)
-                {
-                    return "";
-                }
+            // Data doesn't contain tags
+            if (data.ToLower().Contains(startTag.ToLower()) == false || data.ToLower().Contains(endTag.ToLower()) == false)
+            {
+                return "";
+            }
 
-                // Store data in temp string for formatting
-                temp = data;
+            // Store data in temp string for formatting
+            temp = data;
 
-                // Reposition if tag passed
-                if (repositionTag != "")
+            // Reposition if tag passed
+            if (repositionTag != "")
+            {
+                // Check data actually contains the reposition tag
+                if (data.ToLower().Contains(repositionTag.ToLower()) == true)
                 {
-                    // Check data actually contains the reposition tag
-                    if (data.ToLower().Contains(repositionTag.ToLower()) == true)
-                    {
-                        temp = temp.Substring(temp.ToLower().IndexOf(repositionTag.ToLower()) + repositionTag.Length);
-                    }
-                }
-
-                // Get position of start + end tags
-                start = temp.IndexOf(startTag) + startTag.Length;
-                end = temp.IndexOf(endTag, start);
-
-                if (start != 0 && end != 0)
-                {
-                    // Return data
-                    return temp.Substring(start, end - start).Trim();
-                }
-                else
-                {
-                    // Data not found
-                    return "";
+                    temp = temp.Substring(temp.ToLower().IndexOf(repositionTag.ToLower()) + repositionTag.Length);
                 }
             }
-            catch (Exception ex)
+
+            // Get position of start + end tags
+            start = temp.IndexOf(startTag) + startTag.Length;
+            end = temp.IndexOf(endTag, start);
+
+            if (start != 0 && end != 0)
             {
-                throw ex;
+                // Return data
+                return temp.Substring(start, end - start).Trim();
+            }
+            else
+            {
+                // Data not found
+                return "";
             }
         }
 
@@ -88,20 +81,14 @@ namespace Talrand.Core
         public static string StringTogether(string delimiter, string str1, string str2, string str3 = "", string str4 = "", string str5 = "", string str6 = "")
         {
             string temp = "";
-            try
-            {
-                temp = IndividualStringTogether(delimiter, str1, str2);
-                temp = IndividualStringTogether(delimiter, temp, str3);
-                temp = IndividualStringTogether(delimiter, temp, str4);
-                temp = IndividualStringTogether(delimiter, temp, str5);
-                temp = IndividualStringTogether(delimiter, temp, str6);
 
-                return temp;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            temp = IndividualStringTogether(delimiter, str1, str2);
+            temp = IndividualStringTogether(delimiter, temp, str3);
+            temp = IndividualStringTogether(delimiter, temp, str4);
+            temp = IndividualStringTogether(delimiter, temp, str5);
+            temp = IndividualStringTogether(delimiter, temp, str6);
+
+            return temp;
         }
 
         /// <summary>
@@ -113,32 +100,25 @@ namespace Talrand.Core
         /// <returns>A concaenated string</returns>
         private static string IndividualStringTogether(string delimiter, string str1, string str2)
         {
-            try
+            if (str1 != "" && str2 != "")
             {
-                if (str1 != "" && str2 != "")
-                {
-                    // Both strings exist - concatenate both strings with delimiter
-                    return str1 + delimiter + str2;
-                }
-                else if (str1 != "" && str2 == "")
-                {
-                    // Only first string exists - return first string
-                    return str1;
-                }
-                else if (str1 == "" && str2 != "")
-                {
-                    // Only second string exists - return second string
-                    return str2;
-                }
-                else
-                {
-                    // Both strings blank
-                    return "";
-                }
+                // Both strings exist - concatenate both strings with delimiter
+                return str1 + delimiter + str2;
             }
-            catch (Exception ex)
+            else if (str1 != "" && str2 == "")
             {
-                throw ex;
+                // Only first string exists - return first string
+                return str1;
+            }
+            else if (str1 == "" && str2 != "")
+            {
+                // Only second string exists - return second string
+                return str2;
+            }
+            else
+            {
+                // Both strings blank
+                return "";
             }
         }
 
@@ -151,24 +131,17 @@ namespace Talrand.Core
         {
             System.Text.RegularExpressions.Regex regex = null;
 
-            try
+            // Don't continue if nothing passed
+            if (text == "")
             {
-                // Don't continue if nothing passed
-                if (text == "")
-                {
-                    return "";
-                }
-
-                // Define regex pattern
-                regex = new System.Text.RegularExpressions.Regex("<[^>]*>");
-
-                // Remove HTML from text
-                return regex.Replace(text, " ").Trim();
+                return "";
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            // Define regex pattern
+            regex = new System.Text.RegularExpressions.Regex("<[^>]*>");
+
+            // Remove HTML from text
+            return regex.Replace(text, " ").Trim();
         }
 
         /// <summary>
@@ -177,14 +150,7 @@ namespace Talrand.Core
         /// <returns></returns>
         public static string ExecutablePath()
         {
-            try
-            {
-                return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         }
 
         /// <summary>
@@ -197,34 +163,27 @@ namespace Talrand.Core
         {
             Object keyVal = null;
 
-            try
+            // Open registry key
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyPath))
             {
-                // Open registry key
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keyPath))
+                if (key != null)
                 {
-                    if (key != null)
-                    {
-                        // Get key value and close key
-                        keyVal = key.GetValue(keyName);
-                        key.Close();
-                    }
-
+                    // Get key value and close key
+                    keyVal = key.GetValue(keyName);
+                    key.Close();
                 }
 
-                if (keyVal != null)
-                {
-                    // Convert key value to string
-                    return keyVal.ToString();
-                }
-                else
-                {
-                    // No value - return blank
-                    return "";
-                }
             }
-            catch (Exception ex)
+
+            if (keyVal != null)
             {
-                throw ex;
+                // Convert key value to string
+                return keyVal.ToString();
+            }
+            else
+            {
+                // No value - return blank
+                return "";
             }
         }
 
@@ -238,29 +197,21 @@ namespace Talrand.Core
         {
             RegistryKey key = null;
 
-            try
+            // Open registry key
+            key = Registry.CurrentUser.OpenSubKey(keyPath, true);
+
+            // Create registry key if it doesn't exist
+            if (key == null)
             {
-                // Open registry key
-                key = Registry.CurrentUser.OpenSubKey(keyPath, true);
-                
-                // Create registry key if it doesn't exist
-                if (key == null)
-                {
-                    key = Registry.CurrentUser.CreateSubKey(keyPath, RegistryKeyPermissionCheck.ReadWriteSubTree);
-                }
-
-                // Set key value
-                key.SetValue(keyName, keyVal, RegistryValueKind.String);
-
-                // Close and dispose of key
-                key.Close();
-                key.Dispose();
-
+                key = Registry.CurrentUser.CreateSubKey(keyPath, RegistryKeyPermissionCheck.ReadWriteSubTree);
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+
+            // Set key value
+            key.SetValue(keyName, keyVal, RegistryValueKind.String);
+
+            // Close and dispose of key
+            key.Close();
+            key.Dispose();
         }
 
         /// <summary>
@@ -271,19 +222,13 @@ namespace Talrand.Core
         public static void ViewFile(String fileName, bool waitForExit = false)
         {
             Process process = new Process();
-            try
-            {
-                process.StartInfo.FileName = fileName;
-                process.Start();
 
-                if (waitForExit == true)
-                {
-                    process.WaitForExit();
-                }
-            }
-            catch (Exception ex)
+            process.StartInfo.FileName = fileName;
+            process.Start();
+
+            if (waitForExit == true)
             {
-                throw ex;
+                process.WaitForExit();
             }
         }
     }
