@@ -37,7 +37,7 @@ namespace Talrand.Core
             // Loop through array and join strings together
             for(int i = 0; i < val.Length; i++)
             {
-                joinedVal = joinedVal.Join(delimiter, joinedVal, val[i]);
+                joinedVal = joinedVal.Join(delimiter, val[i]);
             }
 
             // Return constructed string
@@ -57,7 +57,7 @@ namespace Talrand.Core
             // Loop through array and join strings together
             for (int i = 0; i < val.Length; i++)
             {
-                joinedVal = joinedVal.Join(delimiter, joinedVal, val[i].ToString());
+                joinedVal = joinedVal.Join(delimiter, val[i].ToString());
             }
 
             // Return constructed string
