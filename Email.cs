@@ -31,21 +31,20 @@ namespace Talrand.Core
             }
         }
 
+        /// <summary>
+        /// Add email address to recipients collection
+        /// </summary>
+        /// <param name="emailAddress">Email address to add to recipient collection</param>
         public void AddRecipient(string emailAddress)
         {
-            // Ensure email address is passed
-            if (emailAddress == "")
-            {
-                throw new ArgumentException("Email Address cannot be blank");
-            }
-
-            // Add email address to recipients collection
             Recipients.Add(emailAddress);
         }
 
+        /// <summary>
+        /// Send email to each recipient
+        /// </summary>
         public void Send()
         {
-            // Send email to each recipient
             for (int i = 0; i < Recipients.Count; i++)
             {
                 using (MailMessage message = new MailMessage())
