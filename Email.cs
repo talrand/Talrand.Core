@@ -64,44 +64,53 @@ namespace Talrand.Core
         /// </summary>
         public void Send()
         {
-            using (MailMessage message = new MailMessage())
+            // Send message
+            using (SmtpClient smtpClient = new SmtpClient(SMTPSettings.Server, SMTPSettings.Port))
             {
-                // Construct new message
-                message.From = new MailAddress(FromEmail);
-                message.Subject = Subject;
-                message.IsBodyHtml = true;
-                message.Body = Body;
-
-                // Add recipients to message based on type
-                foreach (Recipient recipient in Recipients)
-                {
-                    switch (recipient.Type)
-                    {
-                        case RecipientType.Standard:
-                            message.To.Add(recipient.EmailAddress);
-                            break;
-                        case RecipientType.CC:
-                            message.CC.Add(recipient.EmailAddress);
-                            break;
-                        case RecipientType.BCC:
-                            message.Bcc.Add(recipient.EmailAddress);
-                            break;
-                    }
-                }
-
-                // Send message
-                using (SmtpClient smtpClient = new SmtpClient(SMTPSettings.Server, SMTPSettings.Port))
-                {
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new System.Net.NetworkCredential(SMTPSettings.UserName, SMTPSettings.Password);
-                    smtpClient.EnableSsl = SMTPSettings.UseSSL;
-                    smtpClient.Send(message);
-                }
-
-                // Clear recipients to ensure recipients aren't included in the next email
-                Recipients.Clear();
+                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Credentials = new System.Net.NetworkCredential(SMTPSettings.UserName, SMTPSettings.Password);
+                smtpClient.EnableSsl = SMTPSettings.UseSSL;
+                smtpClient.Send(ConstructMailMessage());
             }
+
+            // Clear recipients to ensure recipients aren't included in the next email
+            Recipients.Clear();
+        }
+
+        /// <summary>
+        /// Creates a new MailMessage object from class properties
+        /// </summary>
+        /// <returns></returns>
+        private MailMessage ConstructMailMessage()
+        {
+            MailMessage message = new MailMessage();
+
+            // Construct new message
+            message.From = new MailAddress(FromEmail);
+            message.Subject = Subject;
+            message.IsBodyHtml = true;
+            message.Body = Body;
+
+            // Add recipients to message based on type
+            foreach (Recipient recipient in Recipients)
+            {
+                switch (recipient.Type)
+                {
+                    case RecipientType.Standard:
+                        message.To.Add(recipient.EmailAddress);
+                        break;
+                    case RecipientType.CC:
+                        message.CC.Add(recipient.EmailAddress);
+                        break;
+                    case RecipientType.BCC:
+                        message.Bcc.Add(recipient.EmailAddress);
+                        break;
+                }
+            }
+
+            // Return constructed message
+            return message;
         }
     }
 }
