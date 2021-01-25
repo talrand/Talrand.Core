@@ -71,7 +71,7 @@ namespace Talrand.Core
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Credentials = new System.Net.NetworkCredential(SMTPSettings.UserName, SMTPSettings.Password);
                 smtpClient.EnableSsl = SMTPSettings.UseSSL;
-                smtpClient.Send(ConstructMailMessage());
+                smtpClient.Send(CreateMailMessage());
             }
 
             // Clear recipients to ensure recipients aren't included in the next email
@@ -82,7 +82,7 @@ namespace Talrand.Core
         /// Creates a new MailMessage object from class properties
         /// </summary>
         /// <returns></returns>
-        private MailMessage ConstructMailMessage()
+        private MailMessage CreateMailMessage()
         {
             MailMessage message = new MailMessage();
 
