@@ -92,7 +92,19 @@ namespace Talrand.Core
             message.IsBodyHtml = true;
             message.Body = Body;
 
-            // Add recipients to message based on type
+            // Add recipients
+            AddRecipientsToMailMessage(ref message);
+
+            // Return constructed message
+            return message;
+        }
+
+        /// <summary>
+        /// Add recipients to MailMessage based on recipient type
+        /// </summary>
+        /// <param name="message">MailMessage object to add recipients to</param>
+        private void AddRecipientsToMailMessage(ref MailMessage message)
+        {
             foreach (Recipient recipient in Recipients)
             {
                 switch (recipient.Type)
@@ -108,9 +120,6 @@ namespace Talrand.Core
                         break;
                 }
             }
-
-            // Return constructed message
-            return message;
         }
     }
 }
