@@ -14,19 +14,19 @@ namespace Talrand.Core
 
         public struct SMTP
         {
-            public string Server { get; set; }
+            public string ServerName { get; set; }
             public string UserName { get; set; }
             public string Password { get; set; }
 
-            public int Port { get; set; }
+            public int PortNumber { get; set; }
             public bool UseSSL { get; set; }
 
-            public SMTP(string server, string userName, string password, int port, bool useSSL)
+            public SMTP(string serverName, string userName, string password, int portNumber, bool useSSL)
             {
-                Server = server;
+                ServerName = serverName;
                 UserName = userName;
                 Password = password;
-                Port = port;
+                PortNumber = portNumber;
                 UseSSL = useSSL;
             }
         }
@@ -65,7 +65,7 @@ namespace Talrand.Core
         public void Send()
         {
             // Send message
-            using (SmtpClient smtpClient = new SmtpClient(SMTPSettings.Server, SMTPSettings.Port))
+            using (SmtpClient smtpClient = new SmtpClient(SMTPSettings.ServerName, SMTPSettings.PortNumber))
             {
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.UseDefaultCredentials = false;
