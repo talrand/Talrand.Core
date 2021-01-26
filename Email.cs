@@ -9,7 +9,7 @@ namespace Talrand.Core
         private Collection<Recipient> Recipients = new Collection<Recipient>();
         public string Subject { get; set; }
         public string Body { get; set; }
-        public string FromEmail { get; set; }
+        public string FromEmailAddress { get; set; }
         public SMTP SMTPSettings { get; set; }
 
         public struct SMTP
@@ -87,7 +87,7 @@ namespace Talrand.Core
             MailMessage message = new MailMessage();
 
             // Construct new message
-            message.From = new MailAddress(FromEmail);
+            message.From = new MailAddress(FromEmailAddress);
             message.Subject = Subject;
             message.IsBodyHtml = true;
             message.Body = Body;
