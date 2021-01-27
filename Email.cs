@@ -17,7 +17,6 @@ namespace Talrand.Core
             public string ServerName { get; set; }
             public string UserName { get; set; }
             public string Password { get; set; }
-
             public int PortNumber { get; set; }
             public bool UseSSL { get; set; }
 
@@ -100,13 +99,14 @@ namespace Talrand.Core
         }
 
         /// <summary>
-        /// Add recipients to MailMessage based on recipient type
+        /// Add recipients from Recipients collection to MailMessage
         /// </summary>
         /// <param name="message">MailMessage object to add recipients to</param>
         private void AddRecipientsToMailMessage(ref MailMessage message)
         {
             foreach (Recipient recipient in Recipients)
             {
+                // Add to different part of the message based on Recipient Type
                 switch (recipient.Type)
                 {
                     case RecipientType.Standard:
