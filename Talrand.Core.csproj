@@ -46,6 +46,7 @@
     <Compile Include="Data.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="LogFile.cs" />
     <Compile Include="ProcessManager.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
