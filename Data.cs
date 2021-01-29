@@ -33,23 +33,12 @@ namespace Talrand.Core
         {
             if (tableName != "")
             {
-                // Check DataSet contains requested table
-                if (dataSet.Tables.Contains(tableName) == true)
-                {
-                    // Return requested table
-                    return dataSet.Tables[tableName];
-                }
-                else
-                {
-                    // Passed table name not found
-                    return null;
-                }
+                // Return requested table
+                return dataSet.Tables[tableName];
             }
-            else
-            {
-                // No table name passed - just return first table
-                return dataSet.Tables[0];
-            }
+
+            // No table name passed - just return first table
+            return dataSet.Tables[0];
         }
     }
 }
