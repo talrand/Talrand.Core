@@ -37,7 +37,7 @@ namespace Talrand.Core
                 return dataSet.Tables[tableName];
             }
 
-            // No table name passed - just return first table 
+            // No table name passed - just return first table
             return dataSet.Tables[0];
         }
     }
