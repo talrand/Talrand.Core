@@ -13,22 +13,8 @@ namespace Talrand.Core
         /// <returns></returns>
         public static DataTable SortDataTable(DataTable dataTable, string sort)
         {
-            DataView dataView = null;
-
-            // Don't continue if no DataTable passed
-            if (dataTable == null)
-            {
-                return null;
-            }
-
-            // No sort order passed - just return passed DataTable
-            if (sort == "")
-            {
-                return dataTable;
-            }
-
             // Get default view of table
-            dataView = dataTable.DefaultView;
+            DataView dataView = dataTable.DefaultView;
 
             // Sort data
             dataView.Sort = sort;
@@ -43,19 +29,8 @@ namespace Talrand.Core
         /// <param name="dataSet">DataSet to extract DataTable from</param>
         /// <param name="tableName">Name of the DataTable to extract from DataSet (optional)</param>
         /// <returns></returns>
-        public static DataTable GetTableFromDataSet(DataSet dataSet, string tableName = "")
+        public static DataTable GetDataTableFromDataSet(DataSet dataSet, string tableName = "")
         {
-            // Don't continue if no data present
-            if (dataSet == null)
-            {
-                return null;
-            }
-
-            if (dataSet.Tables.Count == 0)
-            {
-                return null;
-            }
-
             if (tableName != "")
             {
                 // Check DataSet contains requested table
