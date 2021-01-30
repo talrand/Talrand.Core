@@ -9,7 +9,7 @@ namespace Talrand.Core
         /// Gets executing path of current application
         /// </summary>
         /// <returns></returns>
-        public static string GetApplicationExecutablePath()
+        public static string GetCurrentExecutablePath()
         {
             return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         }
