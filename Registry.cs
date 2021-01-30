@@ -26,16 +26,13 @@ namespace Talrand.Core
 
             }
 
+            // Return kay value
             if (keyVal != null)
             {
-                // Convert key value to string
                 return keyVal.ToString();
             }
-            else
-            {
-                // No value - return blank
-                return "";
-            }
+            
+            return "";
         }
 
         /// <summary>
