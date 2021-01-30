@@ -63,7 +63,7 @@ namespace Talrand.Core
         /// </summary>
         public void Send()
         {
-            // Send message
+            // Create new smtp client and send emails
             using (SmtpClient smtpClient = new SmtpClient(SMTPSettings.ServerName, SMTPSettings.PortNumber))
             {
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
