@@ -52,26 +52,26 @@ namespace Talrand.Core
         /// <returns>A concaenated string</returns>
         private static string IndividualStringTogether(string delimiter, string str1, string str2)
         {
+            // Both strings exist - concatenate both strings with delimiter
             if (str1 != "" && str2 != "")
             {
-                // Both strings exist - concatenate both strings with delimiter
                 return str1 + delimiter + str2;
             }
-            else if (str1 != "" && str2 == "")
+            
+            // Only first string exists - return first string
+            if (str1 != "" && str2 == "")
             {
-                // Only first string exists - return first string
                 return str1;
             }
-            else if (str1 == "" && str2 != "")
+
+            // Only second string exists - return second string
+            if (str1 == "" && str2 != "")
             {
-                // Only second string exists - return second string
                 return str2;
             }
-            else
-            {
-                // Both strings blank
-                return "";
-            }
+
+            // Both strings blank
+            return "";
         }
 
         /// <summary>
@@ -168,11 +168,9 @@ namespace Talrand.Core
                 // Return data
                 return temp.Substring(start, end - start).Trim();
             }
-            else
-            {
-                // Data not found
-                return "";
-            }
+
+            // Data not found
+            return "";
         }
 
         /// <summary>

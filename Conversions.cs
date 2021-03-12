@@ -15,10 +15,8 @@ namespace Talrand.Core
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;
         }
 
         /// <summary>
@@ -32,10 +30,8 @@ namespace Talrand.Core
             {
                 return 1;
             }
-            else
-            {
-                return 0;
-            }
+            
+            return 0;
         }
 
         /// <summary>
