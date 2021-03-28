@@ -86,7 +86,6 @@ namespace Talrand.Core
 
         private void CloseWriter()
         {
-            writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Flush();
             writer.Close();
