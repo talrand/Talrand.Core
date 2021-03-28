@@ -11,12 +11,10 @@ namespace Talrand.Core
         private MemoryStream memoryStream = new MemoryStream();
         private XmlDictionaryWriter writer = null;
 
-        public JsonWriter(string rootElementName = "root")
+        public JsonWriter()
         {
             writer = JsonReaderWriterFactory.CreateJsonWriter(memoryStream);
-
             writer.WriteStartDocument();
-            WriteObjectStartElement(rootElementName);
         }
 
         public void WriteStringElement(string name, string value)
