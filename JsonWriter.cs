@@ -25,7 +25,7 @@ namespace Talrand.Core
         public void WriteNumberElement(string name, int value)
         {
             writer.WriteStartElement(name);
-            writer.WriteAttributeString("type", "number");
+            WriteTypeAttribute("number");
             writer.WriteValue(value);
             writer.WriteEndElement();
         }
@@ -33,7 +33,7 @@ namespace Talrand.Core
         public void WriteNumberElement(string name, decimal value)
         {
             writer.WriteStartElement(name);
-            writer.WriteAttributeString("type", "number");
+            WriteTypeAttribute("number");
             writer.WriteValue(value);
             writer.WriteEndElement();
         }
@@ -41,7 +41,7 @@ namespace Talrand.Core
         public void WriteBooleanElement(string name, bool value)
         {
             writer.WriteStartElement(name);
-            writer.WriteAttributeString("type", "boolean");
+            WriteTypeAttribute("boolean");
             writer.WriteValue(value);
             writer.WriteEndElement();
         }
@@ -49,18 +49,23 @@ namespace Talrand.Core
         public void WriteObjectStartElement(string name)
         {
             writer.WriteStartElement(name);
-            writer.WriteAttributeString("type", "object");
+            WriteTypeAttribute("object");
         }
 
         public void WriteArrayStartElement(string name)
         {
             writer.WriteStartElement(name);
-            writer.WriteAttributeString("type", "array");
+            WriteTypeAttribute("array");
         }
 
         public void WriteArrayItemStart()
         {
             WriteObjectStartElement("item");
+        }
+
+        private void WriteTypeAttribute(string value)
+        {
+            writer.WriteAttributeString("type", value);
         }
 
         public void WriteEndElement()
