@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 
 namespace Talrand.Core
 {
@@ -193,6 +194,55 @@ namespace Talrand.Core
 
             // Remove HTML from text
             return regex.Replace(val, " ").Trim();
+        }
+
+        /// <summary>
+        /// Sorts DataTable using the passed sort string
+        /// </summary>
+        /// <param name="sort">A string containing the required sort order</param>
+        /// <returns></returns>
+        public static DataTable Sort(this DataTable dataTable, string sort)
+        {
+            // Get default view of table
+            DataView dataView = dataTable.DefaultView;
+
+            // Sort data
+            dataView.Sort = sort;
+
+            // Return sorted data
+            return dataView.ToTable();
+        }
+
+        /// <summary>
+        /// Concatenates column values with the passed delimiter
+        /// </summary>
+        /// <returns></returns>
+        public static string ConcatValues(this DataRow[] dataRows, string columnName, string delimiter)
+        {
+            string values = "";
+
+            foreach(DataRow dataRow in dataRows)
+            {
+                values = values.Join(delimiter, dataRow[columnName].ToString());
+            }
+
+            return values;
+        }
+
+        /// <summary>
+        /// Concatenates column values with the passed delimiter
+        /// </summary>
+        /// <returns></returns>
+        public static string ConcatValues(this DataRowCollection dataRowCollection, string columnName, string delimiter)
+        {
+            string values = "";
+
+            foreach (DataRow dataRow in dataRowCollection)
+            {
+                values = values.Join(delimiter, dataRow[columnName].ToString());
+            }
+
+            return values;
         }
     }
 }
