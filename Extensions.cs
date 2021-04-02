@@ -10,12 +10,12 @@ namespace Talrand.Core
             return Conversions.BooleanToNumeric(val);
         }
 
-        public static bool ToBoolean(this Int32 val)
+        public static bool ToBoolean(this int val)
         {
             return Conversions.NumericToBoolean(val);
         }
 
-        public static bool ToBoolean(this Byte val)
+        public static bool ToBoolean(this byte val)
         {
             return Conversions.NumericToBoolean(val);
         }
