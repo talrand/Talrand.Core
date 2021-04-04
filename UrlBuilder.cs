@@ -30,7 +30,7 @@ namespace Talrand.Core
             }
         }
 
-        public void AppendPathSegment(string pathSegment)
+        public void AddPathSegment(string pathSegment)
         {
             PathSegments.Add(pathSegment);
         }
