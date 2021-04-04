@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conversions.cs" />
-    <Compile Include="Data.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="JsonWriter.cs" />
