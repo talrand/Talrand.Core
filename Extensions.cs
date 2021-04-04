@@ -244,5 +244,14 @@ namespace Talrand.Core
 
             return values;
         }
+
+        /// <summary>
+        /// Converts DateTime variable to 23:59:59 of the same day
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime ToEndOfDay(this DateTime value)
+        {
+            return value.Date.AddDays(1).AddSeconds(-1);
+        }
     }
 }
