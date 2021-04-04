@@ -18,23 +18,17 @@ namespace Talrand.Core
         /// Opens a file using the default associated program
         /// </summary>
         /// <param name="fileName">Full filename path of file to open</param>
-        public static void OpenFile(String fileName)
+        /// <param name="waitForExit">Boolean indicating whether program should wait for program to exit before continuing (optional)</param>
+        public static void OpenFile(string fileName, bool waitForExit = false)
         {
             Process process = new Process();
             process.StartInfo.FileName = fileName;
             process.Start();
-        }
 
-        /// <summary>
-        /// Opens a file using the default associated program and waits for user to close the file
-        /// </summary>
-        /// <param name="fileName">Full filename path of file to open</param>
-        public static void OpenFileAndWaitForExit(String fileName)
-        {
-            Process process = new Process();
-            process.StartInfo.FileName = fileName;
-            process.Start();
-            process.WaitForExit();
+            if(waitForExit == true)
+            {
+                process.WaitForExit();
+            }
         }
     }
 }
