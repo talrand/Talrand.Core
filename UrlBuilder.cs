@@ -8,31 +8,36 @@ namespace Talrand.Core
 {
     public class UrlBuilder
     {
-        private string BaseUrl = "";
-        private Hashtable QueryParameters = new Hashtable();
-        private Collection<string> PathSegments = new Collection<string>();
+        private string _baseUrl = "";
+        private readonly Hashtable _queryParameters = new Hashtable();
+        private readonly Collection<string> _pathSegments = new Collection<string>();
  
+        public UrlBuilder(string baseUrl)
+        {
+            _baseUrl = baseUrl;
+        }
+
         public void SetBaseUrl(string baseUrl)
         {
-            BaseUrl = baseUrl;
+            _baseUrl = baseUrl;
         }
 
         public void AddQueryParameter(string key, string value)
         {
-            QueryParameters.Add(key, value);
+            _queryParameters.Add(key, value);
         }
 
         public void RemoveQueryParameter(string key)
         {
-            if (QueryParameters.ContainsKey(key))
+            if (_queryParameters.ContainsKey(key))
             {
-                QueryParameters.Remove(key);
+                _queryParameters.Remove(key);
             }
         }
 
         public void AddPathSegment(string pathSegment)
         {
-            PathSegments.Add(pathSegment);
+            _pathSegments.Add(pathSegment);
         }
 
         public override string ToString()
@@ -40,16 +45,16 @@ namespace Talrand.Core
             StringBuilder stringBuilder = new StringBuilder();
             int paramCount = 0;
 
-            stringBuilder.Append(BaseUrl);
+            stringBuilder.Append(_baseUrl);
 
             // Append path segments
-            foreach(string pathSegment in PathSegments)
+            foreach(string pathSegment in _pathSegments)
             {
                 stringBuilder.Append("/" + pathSegment);
             }
 
             // Append query parameters
-            foreach (DictionaryEntry parameter in QueryParameters)
+            foreach (DictionaryEntry parameter in _queryParameters)
             {
                 paramCount = paramCount + 1;
 
