@@ -6,55 +6,56 @@ using System.Text;
 
 namespace Talrand.Core
 {
-    public class JsonWriter
+    public class JsonWriter : IDisposable
     {
-        private MemoryStream memoryStream = new MemoryStream();
-        private XmlDictionaryWriter writer = null;
+        private readonly MemoryStream _memoryStream = new MemoryStream();
+        private readonly XmlDictionaryWriter _writer = null;
+        private bool _isDisposed;
 
         public JsonWriter()
         {
-            writer = JsonReaderWriterFactory.CreateJsonWriter(memoryStream);
-            writer.WriteStartDocument();
+            _writer = JsonReaderWriterFactory.CreateJsonWriter(_memoryStream);
+            _writer.WriteStartDocument();
         }
 
         public void WriteStringElement(string name, string value)
         {
-            writer.WriteElementString(name, value);
+            _writer.WriteElementString(name, value);
         }
 
         public void WriteNumberElement(string name, int value)
         {
-            writer.WriteStartElement(name);
+            _writer.WriteStartElement(name);
             WriteTypeAttribute("number");
-            writer.WriteValue(value);
-            writer.WriteEndElement();
+            _writer.WriteValue(value);
+            _writer.WriteEndElement();
         }
 
         public void WriteNumberElement(string name, decimal value)
         {
-            writer.WriteStartElement(name);
+            _writer.WriteStartElement(name);
             WriteTypeAttribute("number");
-            writer.WriteValue(value);
-            writer.WriteEndElement();
+            _writer.WriteValue(value);
+            _writer.WriteEndElement();
         }
 
         public void WriteBooleanElement(string name, bool value)
         {
-            writer.WriteStartElement(name);
+            _writer.WriteStartElement(name);
             WriteTypeAttribute("boolean");
-            writer.WriteValue(value);
-            writer.WriteEndElement();
+            _writer.WriteValue(value);
+            _writer.WriteEndElement();
         }
 
         public void WriteObjectStartElement(string name)
         {
-            writer.WriteStartElement(name);
+            _writer.WriteStartElement(name);
             WriteTypeAttribute("object");
         }
 
         public void WriteArrayStartElement(string name)
         {
-            writer.WriteStartElement(name);
+            _writer.WriteStartElement(name);
             WriteTypeAttribute("array");
         }
 
@@ -65,12 +66,12 @@ namespace Talrand.Core
 
         private void WriteTypeAttribute(string value)
         {
-            writer.WriteAttributeString("type", value);
+            _writer.WriteAttributeString("type", value);
         }
 
         public void WriteEndElement()
         {
-            writer.WriteEndElement();
+            _writer.WriteEndElement();
         }
 
         public void WriteToFile(string fileName)
@@ -81,14 +82,35 @@ namespace Talrand.Core
         public override string ToString()
         {
             CloseWriter();
-            return Encoding.UTF8.GetString(memoryStream.ToArray());
+            return Encoding.UTF8.GetString(_memoryStream.ToArray());
         }
 
         private void CloseWriter()
         {
-            writer.WriteEndDocument();
-            writer.Flush();
-            writer.Close();
+            _writer.WriteEndDocument();
+            _writer.Flush();
+            _writer.Close();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_isDisposed == false)
+            {
+                if (disposing == true)
+                {
+                    // Dispose managed objects
+                    _writer.Dispose();
+                    _memoryStream.Dispose();
+                }
+
+                _isDisposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
