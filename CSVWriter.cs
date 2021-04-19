@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Talrand.Core
 {
@@ -27,7 +24,7 @@ namespace Talrand.Core
         /// </summary>
         public void WriteLine()
         {
-            using (var fileWriter = System.IO.File.AppendText(_fileName))
+            using (var fileWriter = File.AppendText(_fileName))
             {
                 fileWriter.WriteLine(_rowData);
             }
