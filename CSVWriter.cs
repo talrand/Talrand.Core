@@ -27,7 +27,6 @@ namespace Talrand.Core
         /// </summary>
         public void WriteLine()
         {
-            // Write constructed data to file
             using (var fileWriter = System.IO.File.AppendText(_fileName))
             {
                 fileWriter.WriteLine(_rowData);
