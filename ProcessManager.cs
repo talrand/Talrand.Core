@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Talrand.Core
 {
@@ -28,6 +29,29 @@ namespace Talrand.Core
             if(waitForExit == true)
             {
                 process.WaitForExit();
+            }
+        }
+
+        /// <summary>
+        /// Checks if the passed file is currently locked by another process
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static bool IsFileLocked(string fileName)
+        {
+            try
+            {
+                // Try to stream file - if errors file is locked
+                using (var streamReader = new StreamReader(fileName))
+                {
+                    streamReader.Close();
+                }
+
+                return false;
+            }
+            catch
+            {
+                return true;
             }
         }
     }
