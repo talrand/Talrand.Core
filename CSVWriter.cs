@@ -16,7 +16,7 @@ namespace Talrand.Core
         /// <param name="value"></param>
         public void AddValue(string value)
         {
-            _rowData = _rowData.Join(",", $"'{value}'");
+            _rowData = _rowData.Join(",", $"\"{value}\"");
         }
 
         /// <summary>
