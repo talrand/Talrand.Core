@@ -59,6 +59,7 @@
     <Compile Include="WebClientEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XmlWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
