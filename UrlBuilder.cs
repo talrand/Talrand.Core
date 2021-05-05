@@ -12,7 +12,7 @@ namespace Talrand.Core
         private readonly Hashtable _queryParameters = new Hashtable();
         private readonly Collection<string> _pathSegments = new Collection<string>();
  
-        public UrlBuilder(string baseUrl)
+        public UrlBuilder(string baseUrl = "")
         {
             _baseUrl = baseUrl;
         }
