@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace Talrand.Core
 {
@@ -92,6 +93,24 @@ namespace Talrand.Core
             }
 
             // Return constructed string
+            return joinedVal;
+        }
+
+        /// <summary>
+        /// Strings together items in a string array with the specified delimiter
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="delimiter">Delimiter to use between items in the array</param>
+        /// <returns></returns>
+        public static string Join(this List<string> val, string delimiter)
+        {
+            string joinedVal = "";
+
+            foreach(string valItem in val)
+            {
+                joinedVal = joinedVal.Join(delimiter, valItem);
+            }
+
             return joinedVal;
         }
 
